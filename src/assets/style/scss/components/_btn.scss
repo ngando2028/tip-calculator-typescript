@@ -1,0 +1,61 @@
+.btn,
+.tip--btn,
+.tip--btn:link,
+.tip--btn:visited,
+.btn--calculator,
+.btn--calculator:link,
+.btn--calculator:visited,
+.btn--reset,
+.btn--reset:link,
+.btn--reset:visited {
+	padding: 1.2rem 2.4rem;
+	border-radius: 1rem;
+	border: 2px solid transparent;
+	display: inline-block;
+	cursor: pointer;
+	background-color: $color-very-dark-cyan;
+	color: $color-white;
+	width: 30%;
+	font-family: "Space Mono", sans-serif;
+	position: relative;
+	transition: all 0.3s;
+}
+
+.btn:hover:not([disabled]) {
+	box-shadow: 0 1rem 1.5rem rgba($color-black, 0.4);
+	top: 3px;
+}
+
+.btn:disabled {
+	cursor: default;
+	background-color: $color-dark-grayish-cyan-1;
+	color: $color-dark-grayish-cyan-2;
+}
+
+.active,
+.tip--btn:hover,
+.tip--btn:active {
+	background-color: $color-primary;
+	color: #000;
+}
+
+.btn--reset,
+.btn--calculator {
+	display: block;
+	margin-top: 4rem;
+	width: 45%;
+	padding: 1.6rem;
+	background-color: $color-primary;
+	color: $color-very-dark-cyan;
+	font-size: 2rem;
+	font-weight: $font-weight-bold;
+	border-radius: 2rem;
+}
+
+.btn--reset {
+	background-color: $color-light-grayish-cyan-1;
+	color: $color-very-dark-cyan;
+}
+
+// .btn--calculator:disabled {
+// }

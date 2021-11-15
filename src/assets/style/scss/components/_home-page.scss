@@ -1,0 +1,19 @@
+body {
+	background-color: $color-light-grayish-cyan-1;
+}
+
+.container {
+	max-width: 100rem;
+	background-color: $color-white;
+	margin: 7rem auto;
+	border-radius: 2rem;
+	padding: 4rem 6rem;
+}
+
+.attribution {
+	font-size: 11px;
+	text-align: center;
+}
+.attribution a {
+	color: hsl(228, 45%, 44%);
+}
