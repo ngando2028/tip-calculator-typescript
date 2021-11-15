@@ -1,36 +1,36 @@
 import React, { createContext, useEffect, useState } from "react";
 import { API_URL } from "../constant/config";
 
-interface ICalculatorContext {
+export interface ICalculatorContext {
 	formValid: boolean;
 	formValue: {};
 	result: {};
 	isDisabled: boolean;
 	activeBtn: number;
-	inputValid: {};
+	inputValid: { bill: true; person: true; tip: true };
 	inputBill: string;
 	inputCustom: string;
 	inputPerson: string;
-	onChangedValue(e: any): void;
-	// handlerReset;
-	// handlerSubmit;
-	onChangedTipValue(e: any): void;
+	onChangedValue(e: React.FormEvent<HTMLInputElement>): void;
+	handlerReset(): void;
+	handlerSubmit(e: React.FormEvent<HTMLInputElement>): void;
+	onChangedTipValue(e: React.FormEvent<HTMLInputElement>): void;
 	children: React.ReactNode;
 }
 
-export const CalculatorContext = createContext<ICalculatorContext>(
-	{} as ICalculatorContext
-);
+export const CalculatorContext = createContext<ICalculatorContext | null>(null);
 
-export const CalculatorProvider = ({
-	children,
-}: ICalculatorContext): JSX.Element => {
+export const CalculatorProvider: React.FC<React.ReactNode> = ({ children }) => {
 	const [formValid, setFormValid] = useState<boolean>(false);
 	const [isDisabled, setIsDisabled] = useState<boolean>(false);
 	const [inputBill, setInputBill] = useState<string>("");
 	const [inputPerson, setInputPerson] = useState<string>("");
 	const [inputCustom, setInputCustom] = useState<string>("");
-	const [inputValid, setInputValid] = useState({
+	const [inputValid, setInputValid] = useState<{
+		bill: true;
+		person: true;
+		tip: true;
+	}>({
 		bill: true,
 		person: true,
 		tip: true,
@@ -87,15 +87,14 @@ export const CalculatorProvider = ({
 		setInputPerson("");
 	};
 
-	const checkNumber = (e: React.FormEventHandler<HTMLInputElement>) => {
-		console.log(e);
-		// let { name, value } = e.target;
-		// let re = name === "person" ? /^[0-9]*$/ : /^[0-9]*\.?[0-9]*$/;
-		// if (!re.test(value)) {
-		//   e.preventDefault();
-		//   return false;
-		// }
-		// return true;
+	const checkNumber = (e: React.FormEvent<HTMLInputElement>) => {
+		let { name, value } = e.currentTarget;
+		let re = name === "person" ? /^[0-9]*$/ : /^[0-9]*\.?[0-9]*$/;
+		if (!re.test(value)) {
+			e.preventDefault();
+			return false;
+		}
+		return true;
 	};
 
 	const checkInvalid = (name: string, value: number) => {
@@ -111,42 +110,42 @@ export const CalculatorProvider = ({
 		}
 	};
 
-	const onChangedTipValue = (e: Event) => {
-		console.log(e);
-		// const { id } = e.target;
-		// if (id === "custom") {
-		//   setActiveBtn(6);
-		//   onChangedValue(e);
-		// } else if (+id < 5) {
-		//   setActiveBtn(id);
-		//   onChangedValue(e);
-		// } else {
-		//   onChangedValue(e);
-		// }
+	const onChangedTipValue = (e: React.FormEvent<HTMLInputElement>) => {
+		const { id } = e.currentTarget;
+
+		if (id === "custom") {
+			setActiveBtn(6);
+			onChangedValue(e);
+		} else if (+id < 5) {
+			setActiveBtn(+id);
+			onChangedValue(e);
+		} else {
+			onChangedValue(e);
+		}
 	};
 
-	const onChangedValue = (e: Event) => {
+	const onChangedValue = (e: React.FormEvent<HTMLInputElement>) => {
 		console.log(e);
-		// let { id, value } = e.target;
-		// if (checkNumber(e)) {
-		//   switch (id) {
-		//     case "bill":
-		//       setInputBill(value);
-		//       checkInvalid(id, value);
-		//       break;
-		//     case "person":
-		//       setInputPerson(value);
-		//       checkInvalid(id, value);
-		//       break;
-		//     case "custom":
-		//       setInputCustom(value);
-		//       checkInvalid("tip", value);
-		//       break;
-		//     default:
-		//       checkInvalid("tip", value);
-		//       return;
-		//   }
-		// }
+		let { id, value } = e.currentTarget;
+		if (checkNumber(e)) {
+			switch (id) {
+				case "bill":
+					setInputBill(value);
+					checkInvalid(id, +value);
+					break;
+				case "person":
+					setInputPerson(value);
+					checkInvalid(id, +value);
+					break;
+				case "custom":
+					setInputCustom(value);
+					checkInvalid("tip", +value);
+					break;
+				default:
+					checkInvalid("tip", +value);
+					return;
+			}
+		}
 	};
 
 	const value: ICalculatorContext = {
@@ -160,8 +159,8 @@ export const CalculatorProvider = ({
 		inputCustom,
 		inputPerson,
 		onChangedValue,
-		// handlerReset,
-		// handlerSubmit,
+		handlerReset,
+		handlerSubmit,
 		onChangedTipValue,
 		children,
 	};

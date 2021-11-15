@@ -1,8 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import Button from "./Button";
+import { CalculatorContext, ICalculatorContext } from "./CaculatorContext";
 import Input from "./Input";
 
 const CalculatorForm = () => {
+	const { activeBtn, inputValid, inputBill, inputPerson, inputCustom } =
+		useContext(CalculatorContext) as ICalculatorContext;
 	const tipArr = [5, 10, 15, 25, 50];
 
 	const submit = (e: React.SyntheticEvent) => {
@@ -17,8 +20,7 @@ const CalculatorForm = () => {
 						Bill
 					</label>
 					<span
-						className={"valid"}
-						// className={!inputValid.bill ? "invalid" : "valid"}
+						className={!inputValid.bill ? "invalid" : "valid"}
 						id="invalid-bill"
 					>
 						Don't letter and smaller than 1
@@ -28,7 +30,7 @@ const CalculatorForm = () => {
 						name="bill"
 						id="bill"
 						placeholder="0"
-						value={"1"}
+						value={inputBill}
 					/>
 				</div>
 				<div className="calculator__control">
@@ -40,10 +42,7 @@ const CalculatorForm = () => {
 						{tipArr.map((tip, index) => (
 							<Button
 								id={index.toString()}
-								classes={`btn tip--btn`}
-								// ${
-								// 	index === +activeBtn ? "active" : ""
-								// }
+								classes={`btn tip--btn ${index === +activeBtn ? "active" : ""}`}
 								value={tip}
 								text={`${tip}%`}
 								name="tip"
@@ -57,7 +56,7 @@ const CalculatorForm = () => {
 							name="tip"
 							id="custom"
 							placeholder="Custom"
-							value={"2"}
+							value={inputCustom}
 						/>
 					</div>
 				</div>
@@ -66,8 +65,7 @@ const CalculatorForm = () => {
 						Number of people
 					</label>
 					<span
-						className={"valid"}
-						// className={!inputValid.person ? "invalid" : "valid"}
+						className={!inputValid.person ? "invalid" : "valid"}
 						id="invalid-person"
 					>
 						Don't letter and smaller than 1
@@ -78,7 +76,7 @@ const CalculatorForm = () => {
 						name="person"
 						id="person"
 						placeholder="0"
-						value={"3"}
+						value={inputPerson}
 					/>
 				</div>
 			</form>

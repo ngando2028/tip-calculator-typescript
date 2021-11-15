@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react";
-import { CalculatorContext } from "./CaculatorContext";
+import { CalculatorContext, ICalculatorContext } from "./CaculatorContext";
 
 type InputProps = {
 	type: string;
@@ -10,7 +10,9 @@ type InputProps = {
 };
 
 const Input: React.FC<InputProps> = (props) => {
-	const { onChangedTipValue } = useContext(CalculatorContext);
+	const { onChangedTipValue, inputValid } = useContext(
+		CalculatorContext
+	) as ICalculatorContext;
 
 	return (
 		<Fragment>
@@ -19,11 +21,10 @@ const Input: React.FC<InputProps> = (props) => {
 				name={props.name}
 				id={props.id}
 				data-index={props.id}
-				className={`calculator__control--input calculator__control--${props.id} `}
-				// ${
-				// 	!inputValid[props.name] ? "input-invalid" : ""
-				// }
-				// placeholder={props.placeholder}
+				className={`calculator__control--input calculator__control--${
+					props.id
+				}${!inputValid ? "input-invalid" : ""}`}
+				placeholder={props.placeholder}
 				onChange={onChangedTipValue}
 				// onClick={onChangedTipValue}
 				value={props.value}
