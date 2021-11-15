@@ -1,6 +1,12 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
-const ResultGroup = (props) => {
+type ResulGroupProps = {
+	text: string;
+	value: string;
+	type: string;
+};
+
+const ResultGroup: React.FC<ResulGroupProps> = (props) => {
 	return (
 		<Fragment>
 			<div className="calculator__result-group">

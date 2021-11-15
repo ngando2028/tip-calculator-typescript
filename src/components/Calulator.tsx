@@ -1,10 +1,6 @@
-import React from "react";
 import { Fragment } from "react";
-
-import "../assets/style/scss/main.scss";
-
+import CalculatorResult from "./CaculatorResult";
 import CalculatorForm from "./CalculatorForm";
-import CalculatorResult from "./CalculatorResult";
 
 const Calculator = () => {
 	return (

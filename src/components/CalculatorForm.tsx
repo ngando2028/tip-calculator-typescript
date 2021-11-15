@@ -1,19 +1,11 @@
-/* eslint-disable no-unused-expressions */
-import React, { useContext } from "react";
 import { Fragment } from "react";
-
-import "../assets/style/scss/main.scss";
-
-import Input from "./Input";
 import Button from "./Button";
-import { CalCulContext } from "./CalculContext";
+import Input from "./Input";
 
 const CalculatorForm = () => {
-	const { activeBtn, inputValid, inputBill, inputPerson, inputCustom } =
-		useContext(CalCulContext);
 	const tipArr = [5, 10, 15, 25, 50];
 
-	const submit = (e) => {
+	const submit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
 	};
 
@@ -25,7 +17,8 @@ const CalculatorForm = () => {
 						Bill
 					</label>
 					<span
-						className={!inputValid.bill ? "invalid" : "valid"}
+						className={"valid"}
+						// className={!inputValid.bill ? "invalid" : "valid"}
 						id="invalid-bill"
 					>
 						Don't letter and smaller than 1
@@ -35,7 +28,7 @@ const CalculatorForm = () => {
 						name="bill"
 						id="bill"
 						placeholder="0"
-						value={inputBill}
+						value={"1"}
 					/>
 				</div>
 				<div className="calculator__control">
@@ -46,14 +39,16 @@ const CalculatorForm = () => {
 					<div className="calculator__control--select">
 						{tipArr.map((tip, index) => (
 							<Button
-								id={index}
-								classes={`btn tip--btn  ${
-									index === +activeBtn ? "active" : ""
-								}`}
+								id={index.toString()}
+								classes={`btn tip--btn`}
+								// ${
+								// 	index === +activeBtn ? "active" : ""
+								// }
 								value={tip}
 								text={`${tip}%`}
 								name="tip"
 								key={index}
+								type="button"
 							/>
 						))}
 
@@ -62,7 +57,7 @@ const CalculatorForm = () => {
 							name="tip"
 							id="custom"
 							placeholder="Custom"
-							value={inputCustom}
+							value={"2"}
 						/>
 					</div>
 				</div>
@@ -71,7 +66,8 @@ const CalculatorForm = () => {
 						Number of people
 					</label>
 					<span
-						className={!inputValid.person ? "invalid" : "valid"}
+						className={"valid"}
+						// className={!inputValid.person ? "invalid" : "valid"}
 						id="invalid-person"
 					>
 						Don't letter and smaller than 1
@@ -82,7 +78,7 @@ const CalculatorForm = () => {
 						name="person"
 						id="person"
 						placeholder="0"
-						value={inputPerson}
+						value={"3"}
 					/>
 				</div>
 			</form>

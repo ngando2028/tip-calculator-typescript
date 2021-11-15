@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from "react";
+import "./assets/style/scss/main.scss";
+import Calculator from "./components/Calulator";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+	return (
+		<Fragment>
+			<h1 className="calculator__heading">
+				Spli <br />
+				tter
+			</h1>
 
+			<main className="container">
+				<Calculator />
+			</main>
+
+			<div className="attribution">
+				Challenge by
+				<a
+					href="https://www.frontendmentor.io?ref=challenge"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Frontend Mentor
+				</a>
+				. Coded by
+				<a href="https://github.com/ngando2028/Training_Javascript_2021">
+					Ngan Do
+				</a>
+				.
+			</div>
+		</Fragment>
+	);
+};
 export default App;
